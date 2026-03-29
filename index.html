@@ -110,15 +110,21 @@
                 <div class="lens" style="background-image: url(day12.png);">Day 12</div>
             </div>
             <div class="container"><div class="lens text"><div>And after a while...</div></div></div>
-            <div class="container"><div class="lens text"><div>...when you've gone through the layers one by one...</div></div></div>
+            <div class="container"><div class="lens text"><div>...when I've gone through the layers one by one...</div></div></div>
             <div class="container"><div class="lens text"><div>...the only thing left is what matters</div></div></div>
         </div>
+        
+        <template id="final-message">
+            <div class="container"><div class="lens text"><div>And even though I said goodbye, the memories continue</div></div></div>
+            <div class="container"><div class="lens text"><div>forever</div></div></div>
+        </template>
 
 
         <script>
             let main = document.getElementsByClassName("main")[0];
             let containers = document.getElementsByClassName("container");
             let template = document.getElementById("template");
+            let end_count = 0;
 
             const observer = new IntersectionObserver(function(entries) {
                 for(entry of entries) {
@@ -139,6 +145,16 @@
                             elem.children[0].style.backgroundImage = `radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 30%), url(${image})`;
                             observer.observe(elem);
                             main.appendChild(clone);
+
+                            if(end_count < 5) end_count++;
+                            else if(end_count == 5) {
+                                const clone = document.importNode(document.getElementById("final-message").content, true);
+                                observer.observe(clone.children[0]);
+                                observer.observe(clone.children[1]);
+                                main.appendChild(clone);
+                                end_count++;
+                            }
+
                         }
                     }
                 }
