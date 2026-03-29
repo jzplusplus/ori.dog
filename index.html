@@ -70,7 +70,7 @@
 
                 height: 60vmin;
 
-                opacity: 0.75;
+                opacity: 0.5;
                 transition: opacity 1.5s;
             }
         </style>
@@ -110,6 +110,10 @@
                 <div class="lens" style="background-image: url(day12.png);">Day 12</div>
             </div>
             <div class="container"><div class="lens text"><div>And after a while...</div></div></div>
+            <div class="container">
+                <img src="day20.png">
+                <div class="lens" style="background-image: url(day20.png);">Day 20</div>
+            </div>
             <div class="container"><div class="lens text"><div>...when I've gone through the layers one by one...</div></div></div>
             <div class="container"><div class="lens text"><div>...the only thing left is what matters</div></div></div>
         </div>
@@ -134,7 +138,7 @@
                     }
                     else if(entry.boundingClientRect.top < 50 && entry.isIntersecting) {
                         let elem = entry.target.getElementsByTagName("img");
-                        if(elem.length > 0) elem[0].style.opacity = "0.75";
+                        if(elem.length > 0) elem[0].style.opacity = "0.5";
                     }
                     else if(entry.boundingClientRect.top > 50 && entry.isIntersecting) {
                         if(entry.target == main.lastElementChild) {
