@@ -113,7 +113,6 @@
                 top: 50lvh;
                 transform: translate(calc(-50% - var(--xoffset)), calc(-50% - var(--yoffset)));
 
-                height: 100%;
                 max-height: 60lvh;
                 max-width: 95lvw;
 
@@ -130,11 +129,15 @@
             }
 
             .container img.ending {
-                mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 75%);;
+                mask-image: radial-gradient(circle, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 45%, rgba(0, 0, 0, 0) 60%);
+                object-fit: contain;
+                height: 85lvmin;
+                width: 85lvmin;
             }
             
             .container img.ending.outer {
                 height: 20lvmax;
+                width: auto;
                 z-index: -1;
             }
 
