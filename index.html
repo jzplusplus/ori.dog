@@ -6,15 +6,15 @@
         <style>
             body {
                 background: #111;
-                width: 100vw;
-                height: 100vh;
+                width: 100lvw;
+                height: 100lvh;
                 margin: 0;
                 font-family: sans-serif;
             }
 
             .landing {
-                width: 100vw;
-                height: 100vh;
+                width: 100svw;
+                height: 100svh;
 
                 background: black;
                 color: #ccc;
@@ -39,7 +39,7 @@
             }
 
             .description {
-                width: 90vw;
+                width: 90svw;
                 max-width: 800px;
                 font-size: 30px;
                 line-height: calc(1ex / 0.32);
@@ -54,43 +54,42 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 70vh;
-            }
-
-            .hidden {
-                display: none;
+                gap: 70lvh;
             }
 
             .container {
-                width: 75vmin;
-                height: 75vmin;
+                position: relative;
+                width: 85lvmin;
+                height: 85lvmin;
+                
+                border: 3px solid;
+                border-radius: 100%;
             }
-            .container:nth-child(even) .lens {
+            .container:nth-child(even) {
                 border-color: rgba(99,57,15,1);
             }
-            .container:nth-child(odd) .lens {
+            .container:nth-child(odd) {
                 border-color: rgba(64,192,255,1);
             }
             .container:nth-child(1) {
                 margin-top: 10vh;
             }
 
-            .lens {
-                width: 75vmin;
-                height: 75vmin;
-
+            .label {
+                position: absolute;
+                top: 0;
+                left: 0;
                 color: white;
                 font-size: 30px;
                 font-weight: 400;
+            }
 
-                border: 3px solid;
-                border-radius: 100%;
+            .lens {
+                width: 100%;
+                height: 100%;
 
                 background-color: black;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                background-position: calc(50% - var(--xoffset)) 50%;
-                background-size: auto 60vmin;
+                clip-path: circle(50%);
             }
 
             .text {
@@ -98,6 +97,10 @@
                 align-items: center;
                 justify-content: center;
                 text-align: center;
+                
+                color: white;
+                font-size: 30px;
+                font-weight: 400;
             }
 
             .text div {
@@ -106,20 +109,32 @@
 
             .container img {
                 position: fixed;
-                left: 50vw;
-                top: 50vh;
+                left: 50lvw;
+                top: 50lvh;
                 transform: translate(calc(-50% - var(--xoffset)), calc(-50% - var(--yoffset)));
 
-                height: 60vmin;
+                max-height: 60lvh;
+                max-width: 95lvw;
 
-                opacity: 0.5;
                 transition: opacity 1.5s;
             }
 
+            img.inner {
+                opacity: 1;
+
+            }
+
+            img.outer {
+                opacity: 0.5;
+            }
+
             .container img.ending {
-                height: 20vmin;
-                z-index: -1;
                 mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 75%);;
+            }
+            
+            .container img.ending.outer {
+                height: 20lvmax;
+                z-index: -1;
             }
 
         </style>
@@ -127,8 +142,10 @@
     <body>
         <template id="template">
             <div class="container">
-                <img src="" class="ending">
-                <div class="lens"></div>
+                <img class="outer ending" src="">
+                <div class="lens">
+                    <img class="inner ending" src="">
+                </div>
             </div>
         </template>
         <div class="main">
@@ -143,38 +160,59 @@
             <div class="container"><div class="lens text"><div>When you lose a pet, nothing makes sense</div></div></div>
             <div class="container"><div class="lens text"><div>I lost my dog Ori on January 4, 2026</div></div></div>
             <div class="container">
-                <img src="day0.png">
-                <div class="lens" style="background-image: url(day0.png);">Day 0</div>
+                <div class="label">Day 0</div>
+                <img class="outer" src="day0.png">
+                <div class="lens">
+                    <img class="inner" src="day0.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>I felt... broken</div></div></div>
             <div class="container">
-                <img src="day1.png">
-                <div class="lens" style="background-image: url(day1.png);">Day 1</div>
+                <div class="label">Day 1</div>
+                <img class="outer" src="day1.png">
+                <div class="lens">
+                    <img class="inner" src="day1.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>I took whatever moments of distraction I could</div></div></div>
             <div class="container">
-                <img src="day2.png">
-                <div class="lens" style="background-image: url(day2.png);">Day 2</div>
+                <div class="label">Day 2</div>
+                <img class="outer" src="day2.png">
+                <div class="lens">
+                    <img class="inner" src="day2.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>And slowly, I began to sort through it</div></div></div>
             <div class="container">
-                <img src="day3.png">
-                <div class="lens" style="background-image: url(day3.png);">Day 3</div>
+                <div class="label">Day 3</div>
+                <img class="outer" src="day3.png">
+                <div class="lens">
+                    <img class="inner" src="day3.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>The days start to get a little tiny bit easier</div></div></div>
             <div class="container">
-                <img src="day4.png">
-                <div class="lens" style="background-image: url(day4.png);">Day 4</div>
+                <div class="label">Day 4</div>
+                <img class="outer" src="day4.png">
+                <div class="lens">
+                    <img class="inner" src="day4.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>Feelings come and go</div></div></div>
             <div class="container">
-                <img src="day12.png">
-                <div class="lens" style="background-image: url(day12.png);">Day 12</div>
+                <div class="label">Day 12</div>
+                <img class="outer" src="day12.png">
+                <div class="lens">
+                    <img class="inner" src="day12.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>And after a while...</div></div></div>
             <div class="container">
-                <img src="day20.png">
-                <div class="lens" style="background-image: url(day20.png);">Day 20</div>
+                <div class="label">Day 20</div>
+                <img class="outer" src="day20.png">
+                <div class="lens">
+                    <img class="inner" src="day20.png">
+                </div>
             </div>
             <div class="container"><div class="lens text"><div>...when I've gone through the layers one by one...</div></div></div>
             <div class="container"><div class="lens text"><div>...the only thing left is what matters</div></div></div>
@@ -213,8 +251,8 @@
             const ending_observer = new IntersectionObserver(function(entries) {
                 for(entry of entries) {
                     if(entry.boundingClientRect.top < 50 && !entry.isIntersecting) {
-                        let elem = entry.target.getElementsByTagName("img");
-                        if(elem.length > 0) {
+                        let elem = entry.target.getElementsByClassName("outer");
+                        if(elem.length > 0 && elem[0].style.opacity != "1") {
                                 elem[0].style.opacity = "1";
                                 elem[0].style.setProperty("--xoffset", ((Math.random() * 100) - 50) + "vw");
                                 elem[0].style.setProperty("--yoffset", ((Math.random() * 100) - 50) + "vh");
@@ -224,16 +262,18 @@
                         if(entry.target == main.lastElementChild) {
                             const clone = document.importNode(template.content, true);
                             let image = urls[Math.floor(Math.random() * urls.length)];
-                            let elem = clone.children[0];
-                            elem.style.setProperty("--xoffset", "0px");
-                            elem.style.setProperty("--yoffset", "0px");
+                            let container = clone.children[0];
+                            container.style.setProperty("--xoffset", "0px");
+                            container.style.setProperty("--yoffset", "0px");
 
-                            elem.children[0].src = image;
-                            elem.children[0].style.opacity = 0;
+                            let outer = container.getElementsByClassName("outer")[0];
+                            outer.src = image;
+                            outer.style.opacity = 0;
 
-                            elem.children[1].style.backgroundImage = `radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 30%), url(${image})`;
+                            let inner = container.getElementsByClassName("inner")[0];
+                            inner.src = image;
                             
-                            ending_observer.observe(elem);
+                            ending_observer.observe(container);
                             main.appendChild(clone);
 
                             if(end_count < 5) end_count++;
