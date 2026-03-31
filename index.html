@@ -108,17 +108,29 @@
                 position: fixed;
                 left: 50vw;
                 top: 50vh;
-                transform: translate(calc(-50% - var(--xoffset)), -50%);
+                transform: translate(calc(-50% - var(--xoffset)), calc(-50% - var(--yoffset)));
 
                 height: 60vmin;
 
                 opacity: 0.5;
                 transition: opacity 1.5s;
             }
+
+            .container img.ending {
+                height: 20vmin;
+                z-index: -1;
+                mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 75%);;
+            }
+
         </style>
     </head>
     <body>
-        <template id="template"><div class="container"><div class="lens"></div></div></template>
+        <template id="template">
+            <div class="container">
+                <img src="" class="ending">
+                <div class="lens"></div>
+            </div>
+        </template>
         <div class="main">
             <div class="landing">
                 <div class="heading">Everything, Everywhere, All At Once</div>
@@ -179,32 +191,56 @@
             let containers = document.getElementsByClassName("container");
             let template = document.getElementById("template");
             let end_count = 0;
+            let z = -1;
 
             const observer = new IntersectionObserver(function(entries) {
                 for(entry of entries) {
                     if(entry.boundingClientRect.top < 50 && !entry.isIntersecting) {
                         let elem = entry.target.getElementsByTagName("img");
-                        if(elem.length > 0) elem[0].style.opacity = "0";
+                        if(elem.length > 0) {
+                            elem[0].style.opacity = "0";
+                        }
                     }
                     else if(entry.boundingClientRect.top < 50 && entry.isIntersecting) {
                         let elem = entry.target.getElementsByTagName("img");
-                        if(elem.length > 0) elem[0].style.opacity = "0.5";
+                        if(elem.length > 0) {
+                            elem[0].style.opacity = "0.5";
+                        }
+                    }
+                }
+            }, {threshold: 1.0});
+
+            const ending_observer = new IntersectionObserver(function(entries) {
+                for(entry of entries) {
+                    if(entry.boundingClientRect.top < 50 && !entry.isIntersecting) {
+                        let elem = entry.target.getElementsByTagName("img");
+                        if(elem.length > 0) {
+                                elem[0].style.opacity = "1";
+                                elem[0].style.setProperty("--xoffset", ((Math.random() * 100) - 50) + "vw");
+                                elem[0].style.setProperty("--yoffset", ((Math.random() * 100) - 50) + "vh");
+                        }
                     }
                     else if(entry.boundingClientRect.top > 50 && entry.isIntersecting) {
                         if(entry.target == main.lastElementChild) {
                             const clone = document.importNode(template.content, true);
                             let image = urls[Math.floor(Math.random() * urls.length)];
                             let elem = clone.children[0];
-                            elem.style.setProperty("--xoffset", ((Math.random() * 200) - 100) + "px");
-                            elem.children[0].style.backgroundImage = `radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 30%), url(${image})`;
-                            observer.observe(elem);
+                            elem.style.setProperty("--xoffset", "0px");
+                            elem.style.setProperty("--yoffset", "0px");
+
+                            elem.children[0].src = image;
+                            elem.children[0].style.opacity = 0;
+
+                            elem.children[1].style.backgroundImage = `radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1) 30%), url(${image})`;
+                            
+                            ending_observer.observe(elem);
                             main.appendChild(clone);
 
                             if(end_count < 5) end_count++;
                             else if(end_count == 5) {
                                 const clone = document.importNode(document.getElementById("final-message").content, true);
-                                observer.observe(clone.children[0]);
-                                observer.observe(clone.children[1]);
+                                ending_observer.observe(clone.children[0]);
+                                ending_observer.observe(clone.children[1]);
                                 main.appendChild(clone);
                                 end_count++;
                             }
@@ -212,17 +248,18 @@
                         }
                     }
                 }
-            }, {threshold: 1.0});
+            }, {threshold: 0.25});
 
             for(elem of containers) {
                 elem.style.setProperty("--xoffset", ((Math.random() * 100) - 50) + "px");
-                observer.observe(elem)
+                elem.style.setProperty("--yoffset", "0px");
+                if(elem != main.lastElementChild) observer.observe(elem);
+                else ending_observer.observe(elem);
             }
 
-            let i = -1;
             for(elem of document.getElementsByTagName("img")) {
-                elem.style.zIndex = i;
-                i--;
+                elem.style.zIndex = z;
+                z--;
             }
 
             urls = [
