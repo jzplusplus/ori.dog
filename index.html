@@ -12,11 +12,53 @@
                 font-family: sans-serif;
             }
 
+            .landing {
+                width: 100vw;
+                height: 100vh;
+
+                background: black;
+                color: #ccc;
+                letter-spacing: 1px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+            }
+            
+            .heading {
+                text-align: center;
+                font-weight: 1000;
+                font-size: 50px;
+            }
+
+            .subheading {
+                text-align: center;
+                font-size: 25px;
+                margin-top: -7%;
+            }
+
+            .description {
+                width: 90vw;
+                max-width: 800px;
+                font-size: 30px;
+                line-height: calc(1ex / 0.32);
+            }
+
+            .instructions {
+                font-size: 25px;
+                font-style: italic;
+            }
+
             .main {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 70vh;
+            }
+
+            .hidden {
+                display: none;
             }
 
             .container {
@@ -78,6 +120,14 @@
     <body>
         <template id="template"><div class="container"><div class="lens"></div></div></template>
         <div class="main">
+            <div class="landing">
+                <div class="heading">Everything, Everywhere, All At Once</div>
+                <div class="subheading">by Jay Zuerndorfer and Ori</div>
+                <div class="description">
+                    This is about the loss of a pet and the grieving process. I am sharing my experience with the hope that it will help someone going through the same feelings. If now doesn't seem like the right time for you, put it away and come back another day.
+                </div>
+                <div class="instructions">▼ scroll down to begin ▼</div>
+            </div>
             <div class="container"><div class="lens text"><div>When you lose a pet, nothing makes sense</div></div></div>
             <div class="container"><div class="lens text"><div>I lost my dog Ori on January 4, 2026</div></div></div>
             <div class="container">
